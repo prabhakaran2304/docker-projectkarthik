@@ -6,18 +6,18 @@ VOLUME /tmp
 WORKDIR /code
 
 # Prepare by downloading dependencies
-ADD pom.xml /code/pom.xml  
+ADD pom.xml /home/app/pom.xml  
 #RUN ["mvn", "dependency:resolve"]
 #RUN ["mvn", "verify"]
 
 # Adding source, compile and package into a fat jar
-ADD src /code/src
+ADD src /home/app/src
 RUN ["mvn", "clean", "install"]
 
-RUN ["ls", "/code/target"]
+RUN ["ls", "/home/app/target"]
 RUN ["pwd"]
-RUN ["ls", "-ltrh", "/code/target/myspringboot.jar"]
+RUN ["ls", "-ltrh", "/home/app/target/myspringboot.jar"]
 
 EXPOSE 8080
 
-ENTRYPOINT [ "java", "-jar", "/code/target/myspringboot.jar" ]
+ENTRYPOINT [ "java", "-jar", "/home/app/target/myspringboot.jar" ]
